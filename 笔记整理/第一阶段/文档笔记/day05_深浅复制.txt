@@ -1,0 +1,9 @@
+3.浅复制(3种方法)：只复制一层
+(1):list1 = list2[:]
+(2):list1 = list2.copy()
+(3):for index in range(0,len(list2)):
+        list1[i] = list2[i]
+
+4.深复制：复制所有层
+import copy
+list1 = copy.deepcopy(list2)

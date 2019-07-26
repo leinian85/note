@@ -1,0 +1,24 @@
+1.循环语句：
+for 变量 in 可迭代对象:
+    循环体
+
+2.整数迭代器
+range(0,100) 可以迭代出0到100的整数，含头不含尾
+
+4.随机函数 random
+import random
+random.randInt(1,100) 随机产生1到100之间的整数，包含1和100
+
+5.字节，字符集
+ord() 将字符转换秤编码  # 字－－> 数
+chr() 将编码转换秤字符  # 数－－> 字
+
+6.转义符 \
+print(r"\n123")
+
+7.格式化输出
+print(“我叫%s,年龄是%d,成绩是%.2f” %(name,age,score))
+list01 = [1,2,3,4,5]
+print("".join("%d"%item for item in list01))
+
+

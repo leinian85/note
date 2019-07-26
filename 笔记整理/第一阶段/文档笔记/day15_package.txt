@@ -1,0 +1,23 @@
+2.package
+学会如何相互调用，如何引入包，没有Pychar的时候如何引入包
+
+包
+    定义：包含__init__.py文件的文件夹
+    作用:团队分工,结构清晰.
+    导入: import 包.模块  as 变量
+         from 包.模块 import 成员
+         from 包.模块 import ×
+    原理：import sys
+         sys.path + from 的路径可以正确的定位到文件，导包才成功.
+
+# # form 包.模块 import 成员
+# from package01.module_a import fun01
+# fun01()
+#
+# form 包.包.模块 import 成员
+from package01.package02.module_b import fun02
+fun02()
+
+# import package01.module_a as pm
+# pm.fun01()
+

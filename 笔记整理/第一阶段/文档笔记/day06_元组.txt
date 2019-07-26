@@ -1,0 +1,26 @@
+2.元组
+(1).创建
+tuple01 = ()
+tuple01 = (1,2,3)
+tuple01 = tuple([1,2])
+tuple01 = (1,)
+
+(2)获取元素（索引  切片）
+tuple03 = ("a", "b", "c", "d")
+e01 = tuple03[1]
+print(type(e01))
+
+#可以直接将元组赋值给多个变量
+tuper04 = (100, 200)
+a, b = tuper04
+print(a)
+print(b)
+
+(3).遍历
+tuple01 = (1,2,3)
+for item in tuple01():
+    print(item)
+
+(4).与 in 结合判断是否存在
+if i in (1,2,3,4):
+    print("OK")

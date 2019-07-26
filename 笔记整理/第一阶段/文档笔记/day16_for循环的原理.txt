@@ -1,0 +1,14 @@
+1.for循环的原理
+(1)获取迭代器
+(2)循环获取下一个元素
+(3)遇到异常停止
+
+例：
+list01 = [51,2,3,9,4]
+listiter = list01.__iter__()
+while True:
+    try:
+        item = listiter.__next__()
+        print(item)
+    except StopIteration:
+        break

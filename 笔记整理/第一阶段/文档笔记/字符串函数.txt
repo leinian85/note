@@ -1,0 +1,34 @@
+判断
+1.startswith(substr, beg=0,end=len(string)) 
+  检查字符串是否以 substr 开头，返回 True和 False。beg 和 end 可以在指定范围内检查。
+2.endswith(substr, beg=0, end=len(string))
+  检查字符串是否以 substr结尾，返回 True和 False。beg 和 end 可以在指定范围内检查。
+查找
+1.find(str, beg=0 end=len(string))
+  检测 str 是否包含在字符串中，包含返回开始的索引值，否则返回-1，beg 和end 可以指定范围内
+2.rfind(str, beg=0,end=len(string))
+  类似于 find()函数，不过是从右边开始查找.
+3.count(str, beg= 0,end=len(string))
+  返回 str 在 string 里面出现的次数，beg 和end 指定范围内 str 出现的次数
+修改
+1.replace(old, new [, max])
+  把 将字符串中的 str1 替换成 str2,如果 max 指定，则替换不超过 max 次。
+2.lstrip()
+  截掉字符串左边的空格或指定字符。
+3.rstrip()
+  删除字符串字符串末尾的空格.
+4.strip([chars])
+  在字符串上执行 lstrip()和 rstrip()
+5.lower()
+  转换字符串中所有大写字符为小写.
+6.upper()
+  转换字符串中的小写字母为大写
+7.swapcase()
+  将字符串中大写转换为小写，小写转换为大写
+对齐
+1.center(width, fillchar)
+  返回一个指定的宽度 width 居中的字符串，fillchar 为填充的字符，默认为空格。
+2.ljust(width[, fillchar])
+  返回一个原字符串左对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。
+3.rjust(width[, fillchar])
+  返回一个原字符串右对齐,并使用 fillchar 填充至长度 width 的新字符串，fillchar 默认为空格。
