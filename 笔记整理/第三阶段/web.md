@@ -1,4 +1,15 @@
 [TOC]
+### 如何学习CSS
+    理解 CSS 的基本语法。
+    理解盒子模型。
+    理解文档流和定位。
+    理解浮动和清除。
+    理解各种 CSS 样式。
+    目前发现的最好的资源是：http://www.w3school.com.cn/css/index.asp，将这里的教程看一边就够了。
+    框架地址：http://happy.codeplex.com 
+    博客地址：http://www.cnblogs.com/happyframework
+
+
 ### table 表格
     创建一个3行4列的表格
     table>tr*3>td*3
@@ -123,12 +134,65 @@ overflow: hidden;#自动填充/自动适配
     transparent 设置颜色透明
 
 ## 浮动布局
-1.属性:
-```
-    float:left/right
+```css
+/* 浮动功能: */
+float:left/right;
+/* 清除浮动 */
+overflow:hidden;
+clear:left/right/both
 ```
 
-2.清除浮动
+## 定位:
+```css
+/* 定位: 相对定位/绝对定位/固定定位  */
+postion:relative/absolute/fixed
+left:10px;
+top:10px;
+right:10px;
+bottom:10px;
 ```
-    clear:left/right/both
+## 背景相关
+```css
+/* 背景色 */
+background-color:red;
+/* 背景图片 */
+background-image:"../img/1.jpg"
+/* 是否重复平铺 */
+background-repeat: repeat/repeat-x/repeat-y/no-repeat
+/* 背景图片的坐标,默认为左上角 */
+background-position:x y; /* x y可以设置像素,也可以设置 left center right/top center botttom */
+/* 背景图片的像素 */
+background-size:width height /*width height 可以设置像素和百分比*/
+```    
+
+## 文本相关
+```css
+/* 字体大小,粗细,斜体,字体名称 */
+font-size:10px;
+font-weight:normal/bold;
+font-style:italic; 
+font-family:Arial,"黑体","Microsoft YaHei";/* 浏览器支持的字体不一样,所以可以有多个字体备选*/
+/* 简写 zise 和 family 必须要写 */
+font:style weight size family;
+
+/* 文本颜色,装饰线,对齐方式,行高 */
+color:red;
+text-decoration:underline/overline/line-through/none;/* 下划线...*/
+text-align:left/center/right;
+/* 文本行高: height值为像素,可以通过 height 来设置文字在父元素中的垂直位置,height等于父元素的高度就是垂直居中*/
+line-height:height;
+
+/* 鼠标移上去的效果 伪类的 hover */
+:hover
+```
+
+## 超链接相关
+```css
+/* 去除超链接的下划线 */
+```
+
+## 无序列表
+```css
+/* 清除列表前面的原点 */
+list-style-type:none;
 ```
