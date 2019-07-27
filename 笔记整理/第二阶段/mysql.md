@@ -168,3 +168,78 @@ mysql -uroot -p 目标库 < stu.sql
 ```
 
 #### mysql主从复制
+
+
+#### 新安装的mysql设置密码
+```sql
+use mysql;
+update user set password=PASSWORD('root') where user='root';
+flush privileges;
+```
+
+#### mysql不能被远程访问的原因(3个原因):
+    1.网络/防火墙:(远程服务器的IP:192.168.80.130)
+```shell
+ping 192.168.80.130  # 如果不通就是网络的问题
+telnet 192.168.80.130 3306 #如果不通,就是mysql的服务器防火墙没有开放3306端口
+    
+处理方法(centos7):
+开放3306端口命令：
+firewall-cmd --zone=public --add-port=3306/tcp --permanent
+重启防火墙：
+systemctl restart firewalld.service
+命令含义：
+--zone #作用域
+--add-port=3306/tcp  #添加端口，格式为：端口/通讯协议
+--permanent   #永久生效，没有此参数重启后失效
+
+防火墙的设置:
+(1).开启防火墙，
+启动firewall：
+systemctl start firewalld.service
+(2).设置开机自启：
+systemctl enable firewalld.service
+(3).重启防火墙：
+systemctl restart firewalld.service
+(4)检查防火墙状态是否打开：
+firewall-cmd --state
+```
+    2.mysql的配置文件的问题
+```
+(1)检查MySQL配置,查看3306端口状态
+netstat -apn|grep 3306
+tcp6  0  0 127.0.0.1:3306  :::*  LISTEN    13524/mysqld
+(2)检查my.cnf的配置文件，bind-address=addr可以配置绑定ip地址。
+不配置或者IP配置为0.0.0.0，表示监听所有客户端连接。
+找到配置文件并屏蔽 bind-address 配置文件可能比较难找
+```
+```sql
+#用下面的语句也可以查看mysql的端口
+mysql> show global variables like 'port';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| port          | 3306  |
++---------------+-------+
+```
+    3.mysql的密码设置问题
+```sql
+#切换到mysql数据库:
+user mysql;
+#将数据库 stu 授权可以远程访问:
+GRANT ALL PRIVILEGES ON stu.* TO mysql@'%' IDENTIFIED BY '123456' WITH GRANT OPTION; 
+#刷新
+FLUSH PRIVILEGES;
+
+mysql> select host,user,authentication_string from user;
++-----------+------------------+-------------------------------------------+
+| host      | user             | authentication_string                     |
++-----------+------------------+-------------------------------------------+
+| localhost | root             | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
+| localhost | mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| localhost | mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| localhost | debian-sys-maint | *D64249D961AE43EAD3B8B30EAE0A2938F892048F |
+| %         | mysql            | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++-----------+------------------+-------------------------------------------+
+
+```
