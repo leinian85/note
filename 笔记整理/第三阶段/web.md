@@ -81,6 +81,9 @@ color:rgba(2,3,5)
 margin:0 auto
 ```
 
+文本框 text
+placeholder 提示信息
+
 #### 边框
 ```css
 boder:width style color;
@@ -100,7 +103,7 @@ border-right	设置右边框
 ```
 
     实体边框由4个三角形组成
-    transparent 设置透明颜色透明
+    transparent 设置颜色透明
 ```css
 border-bottom-color: transparent;
 ```
@@ -167,7 +170,7 @@ background-size:width height /*width height 可以设置像素和百分比*/
 
 ## 文本相关
 ```css
-/* 字体大小,粗细,斜体,字体名称 */
+/* 文本大小,粗细,斜体,字体名称 */
 font-size:10px;
 font-weight:normal/bold;
 font-style:italic; 
