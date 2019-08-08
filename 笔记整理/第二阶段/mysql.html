@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mysql.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<p>[TOC]</p>
+<h3 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E7%B1%BB">数据库分类</h3>
+<ul>
+<li>关系型</li>
+<li>非关系型</li>
+</ul>
+<h3 id="%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84">关系型数据库组织结构</h3>
+<p>数据元素 --&gt; 记录 --&gt; 数据表 --&gt; 数据库
+数据库(database)
+数据表(table)
+记录(row)
+字段(column)
+主键:不能重复能为空(primary key)</p>
+<h3 id="mysql">mysql</h3>
+<p>mysql安装,配置</p>
+<h4 id="mysql%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">mysql基本操作</h4>
+<h5 id="1%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">1.创建数据库</h5>
+<pre class="hljs"><code><div>e.g. 创建stu数据库，编码为utf8
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> stu <span class="hljs-built_in">character</span> <span class="hljs-keyword">set</span> utf8;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> stu <span class="hljs-keyword">charset</span>=utf8;
+<span class="hljs-keyword">use</span> stu   # 切换到stu库
+</div></code></pre>
+<h5 id="2%E5%88%9B%E5%BB%BA%E8%A1%A8">2.创建表</h5>
+<pre class="hljs"><code><div><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">users</span>(
+    <span class="hljs-keyword">id</span>         <span class="hljs-built_in">int</span> auto_increment primary <span class="hljs-keyword">key</span>,
+    login_name <span class="hljs-built_in">varchar</span>(<span class="hljs-number">32</span>) <span class="hljs-keyword">not</span> <span class="hljs-literal">null</span>,
+    <span class="hljs-keyword">password</span>   <span class="hljs-built_in">varchar</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">default</span> <span class="hljs-string">'123456'</span>,
+    sex        enum(<span class="hljs-string">'M'</span>,<span class="hljs-string">'F'</span>),
+    weight     <span class="hljs-built_in">decimal</span>(<span class="hljs-number">6</span>,<span class="hljs-number">2</span>) <span class="hljs-keyword">unsigned</span>,
+    <span class="hljs-keyword">level</span>      <span class="hljs-built_in">char</span>,
+    remark     <span class="hljs-built_in">text</span>,
+    image      longblob
+);
+</div></code></pre>
+<pre class="hljs"><code><div>(1)字段描述:
+primary key 主键
+unsigned 无符号
+not null
+default
+auto_increment 自增
+</div></code></pre>
+<pre class="hljs"><code><div>(2)数据类型:
+#数字: 
+    int | float | double | decimal
+    DECIMAL(6,2)最多存6位数字，小数点后占2位
+#字符串:
+    char | varchar | blob | text | enum | set
+    text 和 blob
+    text 用来存储非二进制文本
+    blob 用来存储二进制字节串
+#日期:
+    date ：&quot;YYYY-MM-DD&quot;
+    time ：&quot;HH:MM:SS&quot;
+    datetime ：&quot;YYYY-MM-DD HH:MM:SS&quot;
+    timestamp ：&quot;YYYY-MM-DD HH:MM:SS&quot;
+    datetime ：不给值默认返回NULL值
+    timestamp ：不给值默认返回系统当前时间
+</div></code></pre>
+<h5 id="3%E8%A1%A8%E5%AD%97%E6%AE%B5%E7%BB%93%E6%9E%84%E4%BF%AE%E6%94%B9">3.表字段结构修改</h5>
+<pre class="hljs"><code><div>语法 ：<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 执行动作;
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> tablename <span class="hljs-keyword">add</span> 
+                      <span class="hljs-keyword">drop</span> 
+                      <span class="hljs-keyword">modify</span>
+                      <span class="hljs-keyword">change</span>
+                      <span class="hljs-keyword">rename</span>
+
+* 添加字段(<span class="hljs-keyword">add</span>)
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> 字段名 数据类型;
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> 字段名 数据类型 <span class="hljs-keyword">first</span>;
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">add</span> 字段名 数据类型 <span class="hljs-keyword">after</span> 字段名;
+* 删除字段(<span class="hljs-keyword">drop</span>)
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">drop</span> 字段名;
+* 修改数据类型(modify)
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">modify</span> 字段名 新数据类型;
+* 修改字段名(<span class="hljs-keyword">change</span>)
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">change</span> 旧字段名 新字段名 新数据类型;
+* 表重命名(<span class="hljs-keyword">rename</span>)
+    <span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> 表名 <span class="hljs-keyword">rename</span> 新表名;
+</div></code></pre>
+<h5 id="4%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F">4.时间格式</h5>
+<pre><code>now() 返回服务器当前时间
+curdate() 返回当前日期
+curtime() 返回当前时间
+date(date) 返回指定时间的日期
+time(date) 返回指定时间的时间
+</code></pre>
+<pre class="hljs"><code><div>mysql&gt; <span class="hljs-keyword">select</span> <span class="hljs-keyword">now</span>(),<span class="hljs-keyword">curdate</span>(),<span class="hljs-keyword">curtime</span>();
++<span class="hljs-comment">---------------------+------------+-----------+</span>
+| now()               | curdate()  | curtime() |
++<span class="hljs-comment">---------------------+------------+-----------+</span>
+| 2019-07-17 19:46:15 | 2019-07-17 | 19:46:15  |
++<span class="hljs-comment">---------------------+------------+-----------+</span>
+
+
+mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> marathon;
++<span class="hljs-comment">----+--------+---------------------+----------+</span>
+| id | name   | enter_time          | croce    |
++<span class="hljs-comment">----+--------+---------------------+----------+</span>
+|  1 | 赵四   | 2019-05-18 12:00:00 | 02:30:30 |
++<span class="hljs-comment">----+--------+---------------------+----------+</span>
+
+mysql&gt; <span class="hljs-keyword">select</span> <span class="hljs-built_in">date</span>(enter_time),<span class="hljs-keyword">time</span>(enter_time) <span class="hljs-keyword">from</span> marathon;
++<span class="hljs-comment">------------------+------------------+</span>
+| date(enter_time) | time(enter_time) |
++<span class="hljs-comment">------------------+------------------+</span>
+| 2019-05-18       | 12:00:00         |
++<span class="hljs-comment">------------------+------------------+</span>
+</div></code></pre>
+<h5 id="5%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E8%BF%90%E7%AE%97">5.日期时间运算</h5>
+<pre><code>时间间隔单位： year | month | day | hour | minute 
+</code></pre>
+<pre class="hljs"><code><div>mysql&gt; <span class="hljs-keyword">select</span> <span class="hljs-keyword">now</span>() - <span class="hljs-built_in">interval</span> <span class="hljs-number">1</span> <span class="hljs-keyword">year</span>;
++<span class="hljs-comment">-------------------------+</span>
+| now() - interval 1 year |
++<span class="hljs-comment">-------------------------+</span>
+| 2018-07-17 19:49:45     |
++<span class="hljs-comment">-------------------------+</span>
+
+mysql&gt; <span class="hljs-keyword">select</span> <span class="hljs-keyword">curtime</span>() - <span class="hljs-built_in">interval</span> <span class="hljs-number">10</span> <span class="hljs-keyword">minute</span>;
++<span class="hljs-comment">--------------------------------+</span>
+| curtime() - interval 10 minute |
++<span class="hljs-comment">--------------------------------+</span>
+| 19:40:11                       |
++<span class="hljs-comment">--------------------------------+</span>
+</div></code></pre>
+<h5 id="6%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D-regexp">6.正则匹配 REGEXP</h5>
+<h5 id="7%E5%88%86%E9%A1%B5%E9%99%90%E5%88%B6-limit">7.分页/限制 LIMIT</h5>
+<pre class="hljs"><code><div>#取成绩前3名
+mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> score <span class="hljs-keyword">desc</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">3</span>;
++<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
+| id | name      | age | sex  | score | 入学时间     |
++<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
+|  1 | 张无忌    |  23 | 男   |   100 | 2019-05-31   |
+|  4 | 张三      | 108 | 男   |    99 | 2019-05-31   |
+|  2 | 赵敏      |  21 | 女   |    98 | 2015-05-06   |
++<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
+</div></code></pre>
+<h4 id="mysql%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D">mysql备份,恢复</h4>
+<p>(1).备份</p>
+<pre class="hljs"><code><div>#将目标库导出到文件stu.sql(不指定路径就是当前文件夹)
+mysqldump -uroot -p 目标库 &gt; stu.sql
+
+    库名 备份单个库
+    --all-databases 备份所有库
+    -B 库1 库2 库3 备份多个库
+    库名 表1 表2 表3 备份指定库的多张表
+</div></code></pre>
+<p>(2).恢复</p>
+<pre class="hljs"><code><div>#将stu.sql文件导入到目标库
+mysql -uroot -p 目标库 &lt; stu.sql
+#(注意):目标库必须存在,如果不存在就需要先创建
+</div></code></pre>
+<h4 id="mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6">mysql主从复制</h4>
+<h4 id="%E6%96%B0%E5%AE%89%E8%A3%85%E7%9A%84mysql%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81">新安装的mysql设置密码</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">use</span> mysql;
+<span class="hljs-keyword">update</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">set</span> <span class="hljs-keyword">password</span>=<span class="hljs-keyword">PASSWORD</span>(<span class="hljs-string">'root'</span>) <span class="hljs-keyword">where</span> <span class="hljs-keyword">user</span>=<span class="hljs-string">'root'</span>;
+<span class="hljs-keyword">flush</span> <span class="hljs-keyword">privileges</span>;
+</div></code></pre>
+<h4 id="mysql%E4%B8%8D%E8%83%BD%E8%A2%AB%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84%E5%8E%9F%E5%9B%A03%E4%B8%AA%E5%8E%9F%E5%9B%A0">mysql不能被远程访问的原因(3个原因):</h4>
+<pre><code>1.网络/防火墙:(远程服务器的IP:192.168.80.130)
+</code></pre>
+<pre class="hljs"><code><div>ping 192.168.80.130  # 如果不通就是网络的问题
+telnet 192.168.80.130 3306 #如果不通,就是mysql的服务器防火墙没有开放3306端口
+    
+处理方法(centos7):
+开放3306端口命令：
+firewall-cmd --zone=public --add-port=3306/tcp --permanent
+重启防火墙：
+systemctl restart firewalld.service
+命令含义：
+--zone #作用域
+--add-port=3306/tcp  #添加端口，格式为：端口/通讯协议
+--permanent   #永久生效，没有此参数重启后失效
+
+防火墙的设置:
+(1).开启防火墙，
+启动firewall：
+systemctl start firewalld.service
+(2).设置开机自启：
+systemctl enable firewalld.service
+(3).重启防火墙：
+systemctl restart firewalld.service
+(4)检查防火墙状态是否打开：
+firewall-cmd --state
+</div></code></pre>
+<pre><code>2.mysql的配置文件的问题
+</code></pre>
+<pre class="hljs"><code><div>(1)检查MySQL配置,查看3306端口状态
+netstat -apn|grep 3306
+tcp6  0  0 127.0.0.1:3306  :::*  LISTEN    13524/mysqld
+(2)检查my.cnf的配置文件，bind-address=addr可以配置绑定ip地址。
+不配置或者IP配置为0.0.0.0，表示监听所有客户端连接。
+找到配置文件并屏蔽 bind-address 配置文件可能比较难找
+</div></code></pre>
+<pre class="hljs"><code><div>#用下面的语句也可以查看mysql的端口
+mysql&gt; <span class="hljs-keyword">show</span> <span class="hljs-keyword">global</span> <span class="hljs-keyword">variables</span> <span class="hljs-keyword">like</span> <span class="hljs-string">'port'</span>;
++<span class="hljs-comment">---------------+-------+</span>
+| Variable_name | Value |
++<span class="hljs-comment">---------------+-------+</span>
+| port          | 3306  |
++<span class="hljs-comment">---------------+-------+</span>
+</div></code></pre>
+<pre><code>3.mysql的密码设置问题
+</code></pre>
+<pre class="hljs"><code><div>#切换到mysql数据库:
+user mysql;
+#将数据库 stu 授权可以远程访问:
+<span class="hljs-keyword">GRANT</span> ALL <span class="hljs-keyword">PRIVILEGES</span> <span class="hljs-keyword">ON</span> stu.* <span class="hljs-keyword">TO</span> mysql@<span class="hljs-string">'%'</span> <span class="hljs-keyword">IDENTIFIED</span> <span class="hljs-keyword">BY</span> <span class="hljs-string">'123456'</span> <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">OPTION</span>; 
+#刷新
+<span class="hljs-keyword">FLUSH</span> <span class="hljs-keyword">PRIVILEGES</span>;
+
+mysql&gt; <span class="hljs-keyword">select</span> host,<span class="hljs-keyword">user</span>,authentication_string <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span>;
++<span class="hljs-comment">-----------+------------------+-------------------------------------------+</span>
+| host      | user             | authentication_string                     |
++<span class="hljs-comment">-----------+------------------+-------------------------------------------+</span>
+| localhost | root             | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
+| localhost | mysql.session    | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| localhost | mysql.sys        | *THISISNOTAVALIDPASSWORDTHATCANBEUSEDHERE |
+| localhost | debian-sys-maint | *D64249D961AE43EAD3B8B30EAE0A2938F892048F |
+| %         | mysql            | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |
++<span class="hljs-comment">-----------+------------------+-------------------------------------------+</span>
+
+</div></code></pre>
+
+</body>
+</html>

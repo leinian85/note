@@ -199,3 +199,43 @@ line-height:height;
 /* 清除列表前面的原点 */
 list-style-type:none;
 ```
+
+## 拖动条
+```html
+<input type="range" min="1" max="10" value="1">
+```
+<html>
+<body>
+<input type="range" min="1" max="10" value="1">
+</body>
+</html>
+
+## 分组元素
+```html
+<!-- 分组元素 -->
+<fieldset>
+    <!-- 分组元素标题 -->
+    <legend>改变背景颜色</legend>
+    <div class="btns">
+        <button>蓝色</button>
+        <button>红色</button>
+        <button>黄色</button>
+    </div>
+</div>
+</fieldset>
+```
+<html>
+<body>
+<!-- 分组元素 -->
+<fieldset>
+    <!-- 分组元素标题 -->
+    <legend>改变背景颜色</legend>
+    <div class="btns">
+        <button>蓝色</button>
+        <button>红色</button>
+        <button>黄色</button>
+    </div>
+</div>
+</fieldset>
+</body>
+</html>
