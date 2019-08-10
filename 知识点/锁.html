@@ -387,79 +387,115 @@ blockquote {
 <body>
 <p>MYSQL 锁
 [TOC]</p>
-<h3 id="%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81">什么是锁</h3>
-<h3 id="%E9%94%81%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84">锁是怎么产生的</h3>
-<h3 id="%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E9%94%81">为什么要有锁</h3>
-<h3 id="%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%94%81">如何避免锁</h3>
-<h3 id="%E9%94%81%E7%9A%84%E7%B1%BB%E5%9E%8B">锁的类型</h3>
-<p>mysql提供了三种锁机制：
-|--表级锁（锁定整个表）
-|--页级锁（锁定一页）
-|--行级锁（锁定一行）
-|--共享锁（S锁，MyISAM 叫做读锁）
-|--排他锁（X锁，MyISAM 叫做写锁）
-|--悲观锁（抽象性，不真实存在这个锁）
-|--乐观锁（抽象性，不真实存在这个锁）</p>
+<h4 id="%E4%BB%80%E4%B9%88%E6%98%AF%E9%94%81">什么是锁</h4>
+<pre class="hljs"><code><div>锁是为了保证数据的准确性而产生的一种机制.
+</div></code></pre>
+<h4 id="%E9%94%81%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84">锁是怎么产生的</h4>
+<pre class="hljs"><code><div>1.数据库发现用户的操作为insert,delete,update的时候会加锁.
+2.开发人员自行加锁
+</div></code></pre>
+<h4 id="%E9%94%81%E7%9A%84%E7%B1%BB%E5%9E%8B">锁的类型</h4>
+<pre class="hljs"><code><div>存储引擎:
+    表级锁
+    页级锁
+    行级锁
+</div></code></pre>
 <ul>
-<li>表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。</li>
-<li>行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。</li>
-<li>页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般</li>
+<li>表级锁：锁定整个表,开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。</li>
+<li>行级锁：锁定一行,开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。</li>
+<li>页面锁：锁定一页,开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般</li>
 </ul>
-<p>行锁实现方式</p>
-<p>InnoDB行锁是通过索引上的索引项来实现的，这一点ＭySQL与Oracle不同，Oracle是通过在数据中对相应数据行加锁来实现的。InnoDB这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB才会使用行级锁，否则，InnoDB将使用表锁！在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发性能。</p>
-<pre class="hljs"><code><div>primary key(id)
-+<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
-| id | name      | age | sex  | score | 入学时间     |
-+<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
-|  1 | 张无忌    |  23 | 男   |   100 | 2019-05-31   |
-|  2 | 赵敏      |  21 | 女   |    98 | 2015-05-06   |
-|  3 | 小昭      |  18 | 女   |    95 | 2019-05-31   |
-|  4 | 张三丰    | 108 | 男   |    98 | 2019-05-18   |
-|  5 | 张翠山    |  35 | 男   |    90 | 2019-05-31   |
-|  7 | 谢逊      |  45 | 男   |    80 | 2019-05-31   |
-| 15 | 鸠摩智    |  49 | 男   |    70 | 2019-07-17   |
-| 16 | 鸠摩智    |  49 | 男   |    70 | 2019-07-17   |
-+<span class="hljs-comment">----+-----------+-----+------+-------+--------------+</span>
+<pre class="hljs"><code><div>行为:
+    共享锁（S锁）
+    排他锁（X锁）
+</div></code></pre>
+<ul>
+<li>共享锁:对某一资源加共享锁,允许他人读,也允许他人加读锁,如果要写,必须等所有读锁都释放.</li>
+<li>排它锁:对某一资源加排它锁,允许他人读,不允许他人写,也不允许他人再加任和锁.</li>
+</ul>
+<pre class="hljs"><code><div>开发人员思想:
+    悲观锁（抽象性，不真实存在这个锁）
+    乐观锁（抽象性，不真实存在这个锁）
+</div></code></pre>
+<ul>
+<li>
+<p>乐观锁不是数据库自带的，需要我们自己去实现。乐观锁是指操作数据库时(更新操作)，想法很乐观，认为这次的操作不会导致冲突，在操作数据时，并不进行任何其他的特殊处理（也就是不加锁），而在进行更新后，再去判断是否有冲突了。</p>
+</li>
+<li>
+<p>悲观锁就是在操作数据时，认为此操作会出现数据冲突，所以在进行每次操作时都要通过获取锁才能进行对相同数据的操作。</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>案例：
+某商品，用户购买后库存数应-1，而某两个或多个用户同时购买，此时三个执行程序均同时读得库存为n，之后进行了一些操作，最后将均执行<span class="hljs-keyword">update</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">set</span> 库存数=n<span class="hljs-number">-1.</span>
+
+<span class="hljs-number">1.</span>使用悲观锁（其实说白了也就是排他锁）
+程序A在查询库存数时使用排他锁（<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span>=<span class="hljs-number">10</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">update</span>）
+然后进行后续的操作，包括更新库存数，最后提交事务。
+程序B在查询库存数时，如果A还未释放排他锁，它将等待。
+程序C同B……
+<span class="hljs-number">2.</span>使用乐观锁（靠表设计和代码来实现）
+般是在该商品表添加<span class="hljs-keyword">version</span>版本字段或者<span class="hljs-keyword">timestamp</span>时间戳字段
+程序A查询后，执行更新变成了：
+<span class="hljs-keyword">update</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">set</span> <span class="hljs-keyword">num</span> = n<span class="hljs-number">-1</span>,<span class="hljs-keyword">version</span> = <span class="hljs-number">24</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span>=<span class="hljs-number">10</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">version</span>=<span class="hljs-number">23</span>
+这样，保证了修改的数据是和它查询出来的数据是一致的，而其他执行程序未进行修改。当然，如果更新失败，表示在更新操作之前，有其他执行程序已经更新了该库存数，那么就可以尝试重试来保证更新成功。为了尽可能避免更新失败，可以合理调整重试次数。
+</div></code></pre>
+<h4 id="%E8%A1%8C%E9%94%81%E7%9A%84%E7%89%B9%E7%82%B9">行锁的特点</h4>
+<pre class="hljs"><code><div>行锁实现方式
+    InnoDB行锁是通过索引上的索引项来实现的，这一点ＭySQL与Oracle不同，Oracle是通过在数据中对相应数据行加锁来实现的。InnoDB这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB才会使用行级锁，否则，InnoDB将使用表锁！在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发性能。
+
+primary key(id)
++<span class="hljs-comment">----+-----------+-----+------+-------+</span>
+| id | name      | age | sex  | score |
++<span class="hljs-comment">----+-----------+-----+------+-------+</span>
+|  1 | 张无忌    |  23 | 男   |   100 |
+|  2 | 赵敏      |  21 | 女   |    98 | 
+|  3 | 小昭      |  18 | 女   |    95 |
+|  4 | 张三丰    | 108 | 男   |    98 |
+|  5 | 张翠山    |  35 | 男   |    90 | 
+|  7 | 谢逊      |  45 | 男   |    80 |
++<span class="hljs-comment">----+-----------+-----+------+-------+</span>
+
+# 锁住一条记录
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> = <span class="hljs-number">1</span>;
+... 
+
+# 锁住整个表
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">class</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span> = <span class="hljs-string">'张无忌'</span>;
+... 
 
 </div></code></pre>
-<p>问题1：
-select * from student WHERE id &gt; 10 and id &lt; 15 FOR UPDATE;
-此时能否插入一条 id = 11 的数据呢？</p>
-<p>四、乐观锁与悲观锁
-乐观锁不是数据库自带的，需要我们自己去实现。乐观锁是指操作数据库时(更新操作)，想法很乐观，认为这次的操作不会导致冲突，在操作数据时，并不进行任何其他的特殊处理（也就是不加锁），而在进行更新后，再去判断是否有冲突了。</p>
-<p>悲观锁就是在操作数据时，认为此操作会出现数据冲突，所以在进行每次操作时都要通过获取锁才能进行对相同数据的操作，这点跟java中的synchronized很相似，所以悲观锁需要耗费较多的时间。另外与乐观锁相对应的，悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。</p>
-<p>案例：
-某商品，用户购买后库存数应-1，而某两个或多个用户同时购买，此时三个执行程序均同时读得库存为n，之后进行了一些操作，最后将均执行update table set 库存数=n-1，那么，很显然这是错误的。</p>
-<p>四、乐观锁与悲观锁
-案例：
-某商品，用户购买后库存数应-1，而某两个或多个用户同时购买，此时三个执行程序均同时读得库存为n，之后进行了一些操作，最后将均执行update table set 库存数=n-1，那么，很显然这是错误的。</p>
-<p>1.使用悲观锁（其实说白了也就是排他锁）
-|--程序A在查询库存数时使用排他锁（select * from table where id=10 for update）
-|--然后进行后续的操作，包括更新库存数，最后提交事务。
-|--程序B在查询库存数时，如果A还未释放排他锁，它将等待。
-|--程序C同B……
-2.使用乐观锁（靠表设计和代码来实现）
-|--一般是在该商品表添加version版本字段或者timestamp时间戳字段
-|--程序A查询后，执行更新变成了：
-update table set num=num-1 where id=10 and version=23
-这样，保证了修改的数据是和它查询出来的数据是一致的，而其他执行程序未进行修改。当然，如果更新失败，表示在更新操作之前，有其他执行程序已经更新了该库存数，那么就可以尝试重试来保证更新成功。为了尽可能避免更新失败，可以合理调整重试次
-数（阿里巴巴开发手册规定重试次数不低于三次）。</p>
-<h3 id="%E5%A6%82%E4%BD%95%E5%8A%A0%E9%94%81%EF%BC%8C%E8%A7%A3%E9%94%81">如何加锁，解锁</h3>
-<pre><code>共享锁
-</code></pre>
-<p>select ... lock in share mode;
+<h4 id="%E5%A6%82%E4%BD%95%E5%8A%A0%E9%94%81%EF%BC%8C%E8%A7%A3%E9%94%81">如何加锁，解锁</h4>
+<pre class="hljs"><code><div>共享锁
+select ... lock in share mode;
 排他锁
-select ...for update；</p>
-<p>mysql InnoDB引擎默认的修改数据语句，update,delete,insert都会自动给涉及到的数据加上排他锁，select语句默认不会加任何锁类型</p>
-<h3 id="%E6%AD%BB%E9%94%81">死锁</h3>
+select ...for update；
+
+mysql InnoDB引擎默认的修改数据语句，update,delete,insert都会自动给涉及到的数据加上排他锁，select语句默认不会加任何锁类型
+</div></code></pre>
 <h4 id="%E6%AD%BB%E9%94%81%E6%98%AF%E6%80%8E%E4%B9%88%E4%BA%A7%E7%94%9F%E7%9A%84">死锁是怎么产生的</h4>
-<p>create table t1(
-id int,
-name varchar(10)
-)engine=MyIsam;</p>
-<p>insert into t1 values(1,'aaa');
-insert into t1 values(2,'bbb');
-insert into t1 values(3,'ccc');</p>
+<pre class="hljs"><code><div>所谓死锁：是指两个或两个以上的进程在执行过程中，因争夺同一资源而造成的一种互相等待的现象，若无外力作用，它们都将无法推进下去,此时称系统处于死锁状态或系统产生了死锁.
+
+例:
+事物1:
+  修改表T的数据A(获得锁)
+  ...
+  ...
+  ...
+  修改表T的数据B(获得锁,但是B的数据已经被锁,等待...)
+事物2:
+  修改表T的数据B(获得锁)
+  ...
+  ...
+  ...
+  修改表T的数据A(获得锁,但是A的数据已经被锁,等待...)
+
+    死锁很难避免,但是可以预防:
+1.利用队列,排队处理
+2.在事务开始就锁住所有要处理的数据
+3.事务尽量简短,让锁住的表尽快释放
+</div></code></pre>
 
 </body>
 </html>
