@@ -25,6 +25,6 @@ def get_num(lens,num,list_num):
             get_num(lens,n,list_num)
 
 list_num=[1,2,3,4]
-get_num(4,"",list_num)
+get_num(1,"",list_num)
 print(list01)
 print("总数:%d"%len(list01))
