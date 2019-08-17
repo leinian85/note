@@ -6,70 +6,6 @@
 ## 目录
 [TOC]
 
-
-### POST传递参数
-- 客户端通过表单等POST请求将数据传递给服务器端,如:
-```html
-<form method='post' action="/user/login">
-    姓名:<input type="text" name="username">
-</form>
-```
-- 服务器端接收参数
-    - 通过 request.method 来判断是否为POST请求,如:
-    ```python
-    if request.method == 'POST':
-        处理POST请求的数据并响应
-    else:
-        处理非POST 请求的响应
-    ```
-
-- 使用post方式接收客户端数据
-    1. 方法
-    ```python
-    request.POST['参数名']
-    request.POST.get('参数名','')
-    request.POST.getlist('参数名')
-    ```
-- 取消csrf验证,否则Django将会拒绝客户端发来的POST请求
-    - 取消 csrf 验证
-        - 删除 settings.py 中 MIDDLEWARE 中的 CsrfViewsMiddleWare 的中间件
-        ```python
-        MIDDLEWARE = [
-            ...
-            # 'django.middleware.csrf.CsrfViewMiddleware',
-            ...
-        ]
-        ```
-
-### form 表单的name属性
-- 在form表单控件提交数据时，会自动搜索本表单控件内部的子标签的name属性及相应的值，再将这些名字和值以键-值对的形式提交给action指定的服务器相关位置
-- 在form内能自动搜集到的name属性的标签的控件有
-    ```html
-    <input name='xxx'>
-    <select name='yyy'></select>
-    <textarea name='zzz'></textarea>
-    ```
-    - 如:
-    ```html
-    <form action="/page1" method="POST">
-        <input name="title" type="text" value="请输入">
-        <select name="gender">
-            <option value=1>男</option>
-            <option value=0>女</option>
-        </select>
-        <textarea name="comment" rows="5" cols="10">附言...</textarea>
-        <input type="submit" value="提交">
-    </form>
-    ```
-
-
-
-
-
-
-- day02
-                    
-
 ## Django的框架模式
 - MVC 设计模式
     - MVC 代表 Model-View-Controller（模型-视图-控制器） 模式。
@@ -188,7 +124,7 @@ TEMPLATES = [
         ```html
         <form action='/mycal' method='POST'>
             <input type='text' name="x" value="1">
-            <select>
+            <select type = "flag">
                 <option value="add"> +加 </option>
                 <option value="sub"> -减 </option>
                 <option value="mul"> *乘 </option>
@@ -204,7 +140,7 @@ TEMPLATES = [
 
 #### 模板的标签
 1. 作用
-    
+   
     - 将一些服务器端的功能嵌入到模板中
 2. 标签语法
     ```
@@ -253,7 +189,7 @@ TEMPLATES = [
     - 在变量输出时对变量的值进行处理
     - 您可以通过使用 过滤器来改变变量的输出显示。
 2. 语法
-    
+   
     - {{ 变量 | 过滤器1:参数值1 | 过滤器2:参数值2 ... }}
 3. 常用的过滤器
     | 过滤器 | 说明 |
@@ -266,6 +202,7 @@ TEMPLATES = [
     | ... | |
 
 5. 文档参见:
+    
     - <https://docs.djangoproject.com/en/1.11/ref/templates/builtins/>
 
 
@@ -297,10 +234,11 @@ TEMPLATES = [
         - 模板继承时,服务器端的动态内容无法继承
 
 - 参考文档
-    
+  
 - <https://docs.djangoproject.com/en/1.11/ref/templates/>
-    
+  
 - 模板的继承示例:
+    
     - ![](images/template_inherit.png)
 
 ### url 反向解析
@@ -312,7 +250,7 @@ TEMPLATES = [
 
 - url() 的`name`关键字参数
     - 作用:
-        
+      
         - 根据url 列表中的`name=`关键字传参给 url确定了个唯一确定的名字，在模板中，可以通过这个名字反向推断出此url信息
     - 在模板中通过别名实现地址的反向解析
         ```

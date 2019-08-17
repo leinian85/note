@@ -7,15 +7,7 @@
 ## 目录
 [TOC]
 
-- 课程特点：
-    1. 学习难度大，大部分内容需要理解并记忆
-    2. 文件较多易混淆
-    3. 学习阶段注重框架使用，工作阶段注重实现业务逻辑
-    4. 综合应用强，小练习少
-
 ## Django框架的介绍
-- 2005年发布,采用Python语言编写的开源web框架
-- 早期的时候Django主做新闻和内容管理的
 - 一个重量级的 Python Web框架，Django 配备了常用的大部分组件
     1. 基本配置
     1. 路由系统
@@ -27,12 +19,6 @@
     1. 分页
     1. 数据库后台管理系统admin
 
-- Django的用途
-    - 网站后端开发
-    - 微信公众号、微信小程序等后台开发
-    - 基于HTTP/HTTPS协议的后台服务器开发
-        - 在线语音/图像识别服务器
-        - 在线第三方身份验证服务器等
 - Django的版本
     - 最新版本:2.2.x
     - 当前教学版本:1.11.8
@@ -83,18 +69,24 @@
 
 
 ## Django框架开发
-### 创建项目的指令
-  - $ django-admin startproject 项目名称
-  - 如:
-    
-    - $ django-admin startproject mysite1
-  - 运行
-    ```shell
-    $ cd mysite1
-    $ python3 manage.py runserver
-    # 或
-    $ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
-    ```
+### 指令
+
+```shell
+# 1.创建项目
+$ django-admin startproject 项目名称
+# 例:
+$ django-admin startproject mysite1
+
+# 2.启动服务
+$ cd mysite1
+$ python3 manage.py runserver
+# 或
+$ python3 manage.py runserver 5000  # 指定只能本机使用127.0.0.1的5000端口访问本机
+
+```
+
+
+
 ### Django项目的目录结构
 - 示例:
     ```shell
@@ -113,11 +105,6 @@
 - 项目目录结构解析:
     - manage.py
         - 此文件是项目管理的主程序,在开发阶段用于管理整个项目的开发运行的调式
-        - `manage.py` 包含项目管理的子命令, 如:
-            - `python3 manage.py runserver` 启动服务
-            - `python3 manage.py startapp` 创建应用
-            - `python3 manage.py migrate` 数据库迁移
-            - `...`
     - mysite1 项目包文件夹
         - 项目包的主文件夹(默认与项目名称一致)
         1. `__init__.py`
@@ -128,27 +115,29 @@
         3. `urls.py`
             - 项目的基础路由配置文件，所有的动态路径必须先走该文件进行匹配
         4. `settings.py`
-            - Django项目的配置文件, 此配置文件中的一些全局变量将为Django框架的运行传递一些参数
-            - setting.py 配置文件,启动服务时自动调用，
+            - Django项目的配置文件,启动服务时自动调用
             - 此配置文件中也可以定义一些自定义的变量用于作用全局作用域的数据传递
-
+    
 - `settings.py` 文件介绍
+    
     1. `BASE_DIR`
        
         - 用于绑定当前项目的绝对路径(动态计算出来的), 所有文件都可以依懒此路径
     2. `DEBUG`
+        
         - 用于配置Django项目的启用模式, 取值:
             1. True 表示开发环境中使用 `调试模式`(用于开发中)
             2. False 表示当前项目运行在`生产环境中`(不启用调试)
     3. `ALLOWED_HOSTS`
+        
         - 设置允许访问到本项目的网络地址列表,取值:
             1. [] 空列表,表示只有`127.0.0.1`, `localhost`, '[::1]' 能访问本项目
             2. ['*']，表示任何网络地址都能访问到当前项目
             3. ['*.tedu.cn', 'weimingze.com'] 表示只有当前两个主机能访问当前项目
             - 注意:
                 - 如果要在局域网其它主机也能访问此主机,启动方式应使用如下模式:
-            - `python3 manage.py runserver 0.0.0.0:5000` # 指定网络设备所有主机都可以通过5000端口访问(需加`ALLOWED_HOSTS = ['*']`) 
-    
+        - `python3 manage.py runserver 0.0.0.0:5000` # 指定网络设备所有主机都可以通过5000端口访问(需加`ALLOWED_HOSTS = ['*']`) 
+        
     4. `INSTALLED_APPS`
        
         - 指定当前项目中安装的应用列表
@@ -172,6 +161,7 @@
             - 世界标准时间: `"UTC"`
             - 中国时区 : `"Asia/Shanghai"`
     10. `ROOT_URLCONF`
+        
         - 用于配置根级 url 配置 'mysite1.urls'
         - 如:
             - `ROOT_URLCONF = 'mysite1.urls'`
@@ -181,7 +171,7 @@
 ### URL 介绍
 - url 即统一资源定位符 Uniform Resource Locator
 - 作用:
-    
+  
     - 用来表示互联网上某个资源的地址。
 - 说明:
   
@@ -226,7 +216,7 @@
         return HttpResponse对象
     ```
 - 参数:
-    
+  
     - request用于绑定HttpRequest对象，通过此对象可以获取浏览器的参数和数据
 - 示例:
     - 视图处理函数 `views.py`
@@ -265,41 +255,10 @@
 
 
 
-- 练习
-    - 建立一个小网站:
-        - 输入网址: http://127.0.0.1:8000, 在网页中输出 : 这是我的首页
-        - 输入网址: http://127.0.0.1:8000/page1, 在网页中输出 : 这是编号为1的网页
-        - 输入网址: http://127.0.0.1:8000/page2, 在网页中输出 : 这是编号为2的网页
-        > 提示: 主面路由的正则是  `r'^$'`
-        - 思考
-            - 建立如上一百个网页该怎么办？
-
-#### 带有分组的路由和视图函数
-- 在视图函数内，可以用正则表达式分组 `()` 提取参数后用函数位置传参传递给视图函数
-- 一个分组表示一个参数,多个参数需要使用多个分组,并且使用个/隔开
-    - 如:
-        - http://127.0.0.1:8000/year/2018
-        - http://127.0.0.1:8000/year/2019
-        - http://127.0.0.1:8000/year/????  # 四位数字
-- 练习：
-    - 定义一个路由的格式为:
-        - http://127.0.0.1:8000/整数/操作字符串/整数
-
-    - 从路由中提取数据，做相应的操作后返回给浏览器
-    - 如：
-    ```
-    输入: 127.0.0.1:8000/100/add/200
-        页面显示结果：300
-    输入: 127.0.0.1:8000/100/sub/200
-        页面显示结果：-100
-    输入: 127.0.0.1:8000/100/mul/200
-        页面显示结果：20000
-    ```
-
 #### 带有命名分组的路由和视图函数
 - 在url 的正则表达式中可以使用命名分组(捕获分组)
 - 说明:
-    
+  
     - 在视图函数内，可以用正则表达式分组 `(?P<name>pattern)` 提取参数后用函数位置传参传递给视图函数
 - 示例:
     - 路由配置文件
@@ -314,22 +273,6 @@
             url(r'^person/(?P<name>\w+)/(?P<age>\d{1,2})',views.person_view),
         ]
         ```
-- 练习:
-    - 访问地址:http://127.0.0.1:8000/birthday/四位数字/一到两位数字/一到两位数字
-    - 最终输出: 生日为: xxxx年xx月xx日
-    - 如:
-        输入网址: http://127.0.0.1:8000/birthday/2015/12/11
-        显示为: 生日为:2015年12月11日
-        输入网址: http://127.0.0.1:8000/birthday/2/28/2008
-        显示为: 生日为:2008年2月28日
-
-
-- PyCharm 社区版针对Django项目调试方法
-    1. 添加自己调式配置
-        - 选择 Add Configuration...
-    2. 点击 `+` 号添加一个自己的配置
-        - 选择运行的项目的主模块位置 manage.py
-        - 添加 runserver 命令行参数
 
 
 ## HTTP协议的请求和响应
@@ -401,10 +344,10 @@
 
 - Django中的响应对象HttpResponse:
     - 构造函数格式:
-        
+      
         - `HttpResponse(content=响应体, content_type=响应体数据类型, status=状态码)`
     - 作用:
-        
+      
         - 向客户端浏览器返回响应，同时携带响应体内容
     - 参数:
         - content：表示返回的内容。
@@ -432,96 +375,42 @@
 
 
 
-### GET方式传参
-- GET请求方式中可以通过查询字符串(Query String)将数据传递给服务器    
-- URL 格式: `xxx?参数名1=值1&参数名2=值2...`
-    
-    - 如: `http://127.0.0.1:8000/page1?a=100&b=200`
-- 服务器端接收参数
-    1. 判断 request.method 的值判断请求方式是否是get请求
-        ```python
-        if request.method == 'GET':
-            处理GET请求时的业务逻辑
-        else:
-            处理其它请求的业务逻辑
-        ```
-    2. 获取客户端请求GET请求提交的数据
-        1. 语法
-            ```python
-            request.GET['参数名']
-            request.GET.get('参数名','默认值')
-            request.GET.getlist('参数名')
-            ```
-        2. 能够产生get请求方式的场合
-            1. 地址栏手动输入, 如: http://www.sina.com.cn/?a=100&b=200
-            2. `<a href="地址?参数=值&参数=值">`
-            3. form表单中的method为get
-                ```html
-                <form method='get' action="/user/login">
-                    姓名:<input type="text" name="uname">
-                </form>
-                ```
-> 一般查询字符串的大小会受到浏览器的的限制(不建议超过2048字节)
+### GET / POST 方式传参
 
-- 练习:
-    - 访问地址:<http://127.0.0.1:8000/sum?start=整数&stop=整数&step整=字>
-    - 输出结果为sum(range(start, step, stop)) 和:
-    - 如:
-        - 输入网址: http://127.0.0.1:8000/sum?start=1&stop=101&step=1
-        - 页面显示: 结果: 5050
-        - 输入网址: http://127.0.0.1:8000/sum?stop=101&step=2
-        - 页面显示: 结果: 2550
-        - 输入网址: http://127.0.0.1:8000/sum?start=1&stop=101&step=2
-        - 页面显示: 结果: 2500
+- 能够产生get请求方式的场合
 
-- 练习:
-    - 访问地址:<http://127.0.0.1:8000/birthday?year=四位整数&month=整数&day=整数>
-    - 最终输出: 生日为: xxxx年xx月xx日
-    - 如:
-        - 输入网址: http://127.0.0.1:8000/birthday?year=2015&month=12&day=11
-        - 显示为: 生日为:2015年12月11日
+  1. 地址栏手动输入, 如: http://www.sina.com.cn/?a=100&b=200
+  2. `<a href="地址?参数=值&参数=值">`
+  3. form表单中的method为get
 
-- PyCharm社区版调试Django程序配置
-    1. 选择 Add Configuration
-    2. 选择 左上角 + 号 选择 "Python"
-        1. script path 里选 manage.py 的路径 
-        2. 在 parameters 里填入runserver
-    3. 设置断点
-    4. 点击开始调式按钮开始调式操作
+  ```html
+  <form method='get' action="/user/login">
+      姓名:<input type="text" name="uname">
+  </form>
+  ```
 
-### POST传递参数
 - 客户端通过表单等POST请求将数据传递给服务器端,如:
-```html
-<form method='post' action="/user/login">
-    姓名:<input type="text" name="username">
-</form>
-```
-- 服务器端接收参数
-    - 通过 request.method 来判断是否为POST请求,如:
-    ```python
-    if request.method == 'POST':
-        处理POST请求的数据并响应
-    else:
-        处理非POST 请求的响应
-    ```
 
-- 使用post方式接收客户端数据
-    1. 方法
+  ```html
+  <form method='post' action="/user/login">
+      姓名:<input type="text" name="username">
+  </form>
+  ```
+
+- 服务器端接收 get 参数和 post 参数
     ```python
-    request.POST['参数名']
-    request.POST.get('参数名','')
-    request.POST.getlist('参数名')
+    if request.method == 'GET':
+        request.GET['参数名']
+        request.GET.get('参数名','默认值')
+        request.GET.getlist('参数名')
+    elif request.method == 'POST':
+        request.POST['参数名']
+        request.POST.get('参数名','')
+        request.POST.getlist('参数名')
+    else:
+        处理其它请求的业务逻辑
     ```
-- 取消csrf验证,否则Django将会拒绝客户端发来的POST请求
-    - 取消 csrf 验证
-        - 删除 settings.py 中 MIDDLEWARE 中的 CsrfViewsMiddleWare 的中间件
-        ```python
-        MIDDLEWARE = [
-            ...
-            # 'django.middleware.csrf.CsrfViewMiddleware',
-            ...
-        ]
-        ```
+> 一般查询字符串的大小会受到浏览器的的限制(不建议超过2048字节)
 
 ### form 表单的name属性
 - 在form表单控件提交数据时，会自动搜索本表单控件内部的子标签的name属性及相应的值，再将这些名字和值以键-值对的形式提交给action指定的服务器相关位置
@@ -544,14 +433,21 @@
     </form>
     ```
 
-- 小结:
-    - URL
-    - 视图
-    - 路由
-    - 从URL的路由中用正则分组提取数据
-    - 从GET请求的查询字符串中用 request.GET 获取数据
-    - 从POST请求的表单中用request.POST获取数据
 
+取消csrf验证,否则Django将会拒绝客户端发来的POST请求
 
+- 取消 csrf 验证
+
+  - 删除 settings.py 中 MIDDLEWARE 中的 CsrfViewsMiddleWare 的中间件
+
+    ```python
+    MIDDLEWARE = [
+        ...
+        # 'django.middleware.csrf.CsrfViewMiddleware',
+        ...
+    ]
+    ```
+
+    
 
 

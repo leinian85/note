@@ -101,6 +101,7 @@
     - ![](images/urls.png)
 #### include 函数
 - 作用:
+    
     - 用于分发将当前路由转到各个应用的路由配置文件的 urlpatterns 进行分布式处理
 - 函数格式
     - include('app命字.url模块名')
@@ -347,6 +348,7 @@
     11. TextField()
         - 数据库类型:longtext
         - 作用:表示不定长的字符数据
+    12. AutoField() 自增长类型
     - 参考文档 <https://docs.djangoproject.com/en/1.11/ref/models/fields/#field-types>
 
 4. 字段选项FIELD_OPTIONS
