@@ -289,7 +289,7 @@ admin.site.register(models.Pub, PubManage)
 
 
 
-## 数据库操作(book应用)
+## 数据库操作(以book应用为例)
 
 #### 关闭中间件
 
@@ -320,37 +320,68 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^add_book$',views.add_book),
+    url(r'^sel_book$',views.sel_book),
     url(r'^update_book$',views.update_book),
     url(r'^del_book$',views.del_book),
 ]
 ```
 
+#### 首页
 
+- 首页只有新增和查询功能,该功能被增加,修改,查询继承
 
-#### 增加 
-
-- book/views.p 的 add_book 函数
-
-- add.html 代码:
+- 页面 : index.html
 
   ```html
   <!DOCTYPE html>
   <html lang="en">
   <head>
       <meta charset="UTF-8">
-      <title>新增书籍</title>
+      {% block title %}
+      <title>首页</title>
+      {% endblock%}
   </head>
   <body>
-  <form action="/book/add_book" method="post">
+      <a href="/book/add_book">添加书籍</a>
+      <a href="/book/sel_book">查看书籍</a>
+      {% block body %}
+      {% endblock body %}
+  </body>
+  </html>
+  ```
+
+  
+
+#### 增加 
+
+- book/views.py 的 add_book 函数(代码在后面)
+
+- 页面 : add.html 代码:
+
+  ```html
+  {% extends "book/index.html" %}
+  {% block title %}
+  <title>新增书籍</title>
+  {% endblock%}
+  {% block body %}
+  {{ book }}
+  <form action="{% if book %}/book/update_book
+                {% else %}/book/add_book
+                {% endif %}"
+        method="post">
+      <input type="text" hidden name = "id" value={{ book.id }}>
       <div>
-          书名: <input type="text" name="title">
+          书名: <input type="text" name="title" value="{{ book.title }}">
       </div>
   
       {% if pubs is not null %}
       <div>出版社:
           <select name="pub_id">
               {% for pub in pubs %}
-              <option value="{{ pub.id }}">{{ pub.name }}</option>
+              <option value="{{ pub.id }}"
+                      {% if book.pub_id == pub.id %}selected{% endif %}>
+                  {{ pub.name }}
+              </option>
               {% endfor %}
           </select>
       </div>
@@ -360,31 +391,63 @@ urlpatterns = [
       <div>作者:
           <select name="author_id">
               {% for author in authors %}
-              <option value="{{ author.id }}">{{ author.name }}</option>
+              <option value="{{ author.id }}"
+                      {% if book.author_id == author.id %}selected{% endif %}>
+                  {{ author.name }}
+              </option>
               {% endfor %}
-          </select>
+        </select>
       </div>
       {% endif %}
-      <input type="submit" value="增加">
+      <input type="submit" value="{% if book %}修改{% else %}增加{% endif %}">
   </form>
   {{ msg }}
-  </body>
-  </html>
+  {% endblock body %}
   ```
-
+  
   
 
 #### 修改
 
-- book/views.py  的 update_book 函数
+- book/views.py  的 update_book 函数(代码在后面)
+- 页面 : 修改页面与增加页面公用
 
 #### 删除
 
-- book/views.py 的 del_book 函数
+- book/views.py 的 del_book 函数(代码在后面)
+- 页面 : 删除功能无页面
 
 #### 查询
 
-- book/views.py 的 sel_book 函数
+- book/views.py 的 sel_book 函数(代码在后面)
+
+- 页面 : sel_book.html
+
+  ```html
+  {% extends "book/index.html" %}
+  {% block body %}
+  <table>
+      <tr>
+          <td>书名</td>
+          <td>作者</td>
+          <td>出版社</td>
+          <td>修改</td>
+          <td>删除</td>
+      </tr>
+      {% for book in books %}
+      <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.pub }}</td>
+          <td><a href="/book/add_book?id={{ book.id }}">修改</a></td>
+          <td><a href="/book/del_book?id={{ book.id }}">删除</a></td>
+      </tr>
+      {% endfor %}
+  </table>
+  {% endblock body%}
+  ```
+
+  
 
 #### book/viewspy
 
@@ -399,8 +462,11 @@ def index(request):
 def add_book(request):
     pubs = models.Pub.objects.all()
     authors = models.Author.objects.all()
-    if request.method =="GET":
-        return render(request, "book/add.html",locals())
+    if request.method == "GET":
+        try:
+            book = models.Book.objects.get(id = request.GET.get("id"))
+        except:
+            book = None
     elif request.method =="POST":
         try:
             title = request.POST.get("title")
@@ -412,7 +478,37 @@ def add_book(request):
             msg = "添加成功!"
         except Exception as e:
             msg = e
-        return render(request, "book/add.html", locals())
+    return render(request, "book/add.html", locals())
+
+
+def sel_book(request):
+    books = models.Book.objects.all()
+    return render(request,"book/sel_book.html",locals())
+
+def update_book(request):
+    if request.method == "POST":
+        try:
+            book = models.Book.objects.get(id = request.POST.get("id"))
+            book.title = request.POST.get("title")
+            book.author_id = request.POST.get("author_id")
+            book.pub_id = request.POST.get("pub_id")
+            book.save()
+            msg = "修改成功"
+            book = None
+            pubs = models.Pub.objects.all()
+            authors = models.Author.objects.all()
+        except Exception as e:
+            msg = e
+    return render(request,"book/add.html",locals())
+
+
+def del_book(request):
+    if request.method == "GET":
+        id = request.GET.get("id")
+        book = models.Book.objects.get(id = id)
+        book.delete()
+    books = models.Book.objects.all()
+    return render(request,"book/sel_book.html",locals())
 ```
 
 
@@ -438,4 +534,30 @@ $ python3 manage.py migrate
 # 5.创建超级用户(后台管理数据库表)
 $ python3 manage.py createsuperuser
 ```
+
+
+
+## 登录功能
+
+#### 创建数据库
+
+```sql
+mysql> create database blog charset utf8;
+```
+
+#### 添加 blog 应用
+
+```shell
+$ python3 manage.py startapp blog
+```
+
+#### 配置
+
+```
+
+```
+
+
+
+
 
