@@ -3,7 +3,7 @@
     注意:函数体自带return
 
 ### lambda 推导:
-```
+```python
 from common.list_helper import *
 
 list01 = [43, 4, 5, 5, 6, 7, 87]

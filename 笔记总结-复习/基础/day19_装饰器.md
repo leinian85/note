@@ -1,13 +1,15 @@
 ### 装饰器
-    装饰器可以依照下面格式:
-    def verify_account(func):
-        def wrapper(*args, **kwargs):
-            ......
-            return func(*args, **kwargs)
-        return wrapper
+```python
+装饰器可以依照下面格式:
+def verify_account(func):
+    def wrapper(*args, **kwargs):
+        ......
+        return func(*args, **kwargs)
+    return wrapper
+```
 
 ### 示例:
-```
+```python
 # 需求：对以下两个功能增加权限验证.
 """
 # 需要增加的功能
@@ -102,3 +104,4 @@ def delete_order(id):
 enter_background("abc", 1234)
 delete_order(101)
 ```
+
