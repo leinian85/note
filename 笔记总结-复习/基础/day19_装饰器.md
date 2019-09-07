@@ -1,13 +1,65 @@
 ### 装饰器
 ```python
+<<<<<<< HEAD
 装饰器可以依照下面格式:
+=======
+# 装饰器可以依照下面格式:
+>>>>>>> a90d5874db9b330c6e52e174d5e1fd51afb461f0
 def verify_account(func):
     def wrapper(*args, **kwargs):
         ......
         return func(*args, **kwargs)
     return wrapper
+<<<<<<< HEAD
 ```
 
+=======
+
+# 带参数的装饰器
+# 装饰器允许传入参数，一个携带了参数的装饰器将有三层函数，如下所示：
+def check(*method)
+    def verify_account(func):
+        def wrapper(*args, **kwargs):
+            ......
+            return func(*args, **kwargs)
+        return wrapper
+    return verify_account
+
+# 多个装饰器,广度优先的原则
+# eg.
+def a(func):
+    print('i\'m a!')
+    def e():
+        print(1)
+        func()
+        print(2)
+    return e
+
+def b(func):
+    print('i\'m b!')
+    def d():
+        print('a')
+        func()
+        print('b')
+    return d
+
+@a
+@b
+def c():
+    print('!!!!!')
+
+c()
+#输出结果:
+i'm b!
+i'm a!
+1
+a
+!!!!!
+b
+2
+```
+
+>>>>>>> a90d5874db9b330c6e52e174d5e1fd51afb461f0
 ### 示例:
 ```python
 # 需求：对以下两个功能增加权限验证.
@@ -79,7 +131,6 @@ enter_background()
 delete_order()
 缺点：如果已有功能参数不统一，则无法包装.
 """
-
 
 def verify_permissions(func):
     def wrapper(*args, **kwargs):
