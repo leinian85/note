@@ -4,7 +4,7 @@
 
 ## spider
 
-#### 1.请求模块 urllib.request
+### 1.请求模块 urllib.request
 
 ```python
 url = "http://httpbin.org/get"
@@ -18,7 +18,7 @@ res.geturl() # 获取响应的链接
 res.code() # 获取响应的响应码
 ```
 
-#### 2.编码模块(中文编码) urllib.parse
+### 2.编码模块(中文编码) urllib.parse
 
 ```python
 # 1.字典编码
@@ -44,7 +44,7 @@ url = baseurl + result
 print(url) # https://www.baidu.com/s?wd=%E8%B5%B5%E4%B8%BD%E9%A2%96&pn=10
 ```
 
-#### 3.fake_useragent 模块
+### 3.fake_useragent 模块
 
 ```python
 # 提供 User-Agent ,需要下载
@@ -54,9 +54,69 @@ us = UserAgent()
 print(us.random)
 ```
 
-#### 4.re 模块
+### 4.re 模块
 
 - 贪婪模式和非贪婪模式
+
+### 5.csv模块
+
+```python
+writerow([])           # 列表中每个元素代表csv中每一列
+writerows([(),(),()])  # 元组中每个元素代表csv中每一列,也可以是列表
+writerows([[],[],[]])  # 元组中每个元素代表csv中每一列,也可以是列表
+```
+
+```python
+# 将文件保存到csv文件
+import csv
+file = [
+    ("霸王别姬","张国荣,张丰毅,巩俐","1993-01-01"),
+    ("肖申克的救赎","蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿","1994-09-10"),
+    ("罗马假日","格利高里·派克,奥黛丽·赫本,埃迪·艾伯特","1953-09-02")
+]
+# 方法一:一行一行写入
+# newline="" 避免在 windows 系统中出现空行
+def sava_csv(self,file):
+    with open("猫眼电影.csv","w",newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["名称", "主演", "上映时间"])
+        for line in file:
+            writer.writerow(line)
+# 方法二:一次性写入
+def save_csv_rows(self,file):
+    with open("猫眼电影.csv","w",newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(file)
+
+```
+
+### 6.pymysql模块
+
+```python
+# 将数据保存到 mysql,使用 executemany 比使用 execute 效率要高
+import pymysql
+file = [
+    ("霸王别姬","张国荣,张丰毅,巩俐","1993-01-01"),
+    ("肖申克的救赎","蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿","1994-09-10"),
+    ("罗马假日","格利高里·派克,奥黛丽·赫本,埃迪·艾伯特","1953-09-02")
+]
+def save_mysql(self,file):
+    db = pymysql.connect(
+            host="localhost",
+            user="root",
+            password="123456",
+            database="spider",
+            port=3306,
+            charset='utf8'
+        )
+    cursor = db.cursor()
+    sql = "insert into filmtab(name,star,time) values(%s,%s,%s)"
+    cursor.executemany(sql,file)  # 一次性将数据保存,file可以为列表,元组
+    db.commit()
+    cursor.close()
+    db.close()
+save_mysql(file)
+```
 
 
 

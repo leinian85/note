@@ -18,7 +18,7 @@ PYTHON
 - 执行过程
 
     源代码-编译 -> 字节码-解释 -> 机器码
-![执行过程](../imgs/day01/d01_执行过程.jpg "执行过程")
+![执行过程](../../imgs/base/day01/d01_执行过程.jpg "执行过程")
 
 ### 学习方法:
 
@@ -54,9 +54,9 @@ bool(数据)
 ```
 
 ### 数据赋值内存图
-!["None"](../imgs/day02/d02_None.jpg)
-!["变量交换"](../imgs/day02/d02_变量交换.jpg)
-!["变量内存图"](../imgs/day02/d02_变量内存图.jpg)
+!["None"](../../imgs/base/day02/d02_None.jpg)
+!["变量交换"](../../imgs/base/day02/d02_变量交换.jpg)
+!["变量内存图"](../../imgs/base/day02/d02_变量内存图.jpg)
 
 ## 三.数据基本运算
 ### 变量
@@ -141,7 +141,7 @@ else:
 ord() 将字符转换秤编码  # 字－－> 数
 chr() 将编码转换秤字符  # 数－－> 字
 ```
-![字符集](../imgs/day04/d04_字符集.jpg "字符集")
+![字符集](../../imgs/base/day04/d04_字符集.jpg "字符集")
 
 ### 2.转义符 \
     print(r"\n123")
@@ -161,7 +161,7 @@ chr() 将编码转换秤字符  # 数－－> 字
     item[-2:-5] 从倒数第2位开始到倒数第5位结束,最后一位没有填默认为1,从前往后取,所以取不到值
 **切片会产生新的数据,新的数据类型与原类型相同**
 
-![索引](../imgs/day04/d04_索引.jpg "索引")
+![索引](../../imgs/base/day04/d04_索引.jpg "索引")
 
 ### 2.链接 join 
 ```
@@ -179,10 +179,10 @@ list1 = str1.split(",")  #以","拆分字符串
     append  往列表最后增加元素
     pop     默认删除最后一个元素
     remove  移除列表种的制定元素，移除后，该元素后面的元素都会向前移动一个位置，使用删除最好从结尾开始
-![remove](../imgs/day05/d05_删除原理.jpg "remove")
+![remove](../../imgs/base/day05/d05_删除原理.jpg "remove")
 
     del     删除列表种指定位置的元素
-![del](../imgs/day03/d03_del.jpg "del")
+![del](../../imgs/base/day03/d03_del.jpg "del")
 
 ### 5.内建函数
     len() 
@@ -201,7 +201,7 @@ for item in list01():
 list02 = [item for item in list01]
 ```
 ### 7.求列表中的最小值
-![内存图](../imgs/day06/d06_求最小值内存图.jpg)
+![内存图](../../imgs/base/day06/d06_求最小值内存图.jpg)
 
 ### 8.列表推导式嵌套：
 ```
@@ -232,20 +232,36 @@ for i in range(0,len(list2)):
 ```
 
     浅复制内存图1:
-![copy](../imgs/day05/d05_列表内存图03.jpg)
+![copy](../../imgs/base//day05/d05_列表内存图03.jpg)
     浅复制内存图2:
-![copy](../imgs/day05/d05_列表内存图04.jpg)
+![copy](../../imgs/base//day05/d05_列表内存图04.jpg)
     浅复制内存图3:
-![copy](../imgs/day05/d05_列表内存图06.jpg)
+![copy](../../imgs/base//day05/d05_列表内存图06.jpg)
 
-## 2.深复制
+### 2.深复制
     深复制：复制所有层
 ```
 import copy
 list1 = copy.deepcopy(list2)
 ```
     深复制内存图:
-![copy](../imgs/day05/d05_列表内存图07.jpg)
+![copy](../../imgs/base/day05/d05_列表内存图07.jpg)
+
+### 浅拷贝和深拷贝的区别:
+
+```python
+1.浅拷贝: 创建新对象，其内容是原对象的引用,它仅仅只拷贝了一层
+    浅拷贝有三种形式：切片操作，工厂函数，copy模块中的copy函数。
+    如： lst = [1,2,3,[4,5]] 
+    切片操作：lst1 = lst[:] 或者 lst1 = [each for each in lst]
+    工厂函数：lst1 = list(lst)
+    copy函数：lst1 = copy.copy(lst)
+
+2.深拷贝：深拷贝拷贝了对象的所有元素，包括多层嵌套的元素,深拷贝出来的对象是一个全新的对象，不再与原来的对象有任何关联
+深拷贝只有一种形式，copy模块中的deepcopy函数。
+```
+
+
 
 ## 八.元组
 ### 1.创建
@@ -284,10 +300,10 @@ if i in (1,2,3,4):
     print("OK")
 ```
 ### 5.列表与元组的区别
-![列表与元组的区别](../day06/d06_列表与元组.jpg "列表与元组的区别")
+![列表与元组的区别](../../imgs/base/day06/d06_列表与元组.jpg "列表与元组的区别")
 
-# 九.字典
-## 1.创建 空字典
+## 九.字典
+### 1.创建 空字典
 ```
 dict01 = {}
 dict01 = dict()
@@ -297,9 +313,9 @@ dict01 = dict([("a","b"),("c","d")])
 print(dict01) # {'a': 'b', 'c': 'd'}
 ```
     字典内存图
-![字典内存图](../day06/字典内存图.jpg "字典内存图")
+![字典内存图](../../imgs/base/day06/d06_字典内存图.jpg "字典内存图")
 
-## 2.查找元素
+### 2.查找元素
 ```
 # 根据key查找value
 print(dict01["a"])
@@ -308,21 +324,21 @@ if "qtx" in dict01:# 如果存在key
     print(dict01["qtx"])
 ```
 
-## 3.修改元素
+### 3.修改元素
     之前存在key的时候从可以修改
     dict01["a"] = "BB"
 
-## 4.添加
+### 4.添加
     之前不存在key就可以添加,如果之前存在就变成修改了
     dict01["e"] = "f"
 
-## 5.删除
+### 5.删除
 ```
 del dict01["a"]
 print(dict01)
 ```
 
-## 6.遍历
+### 6.遍历
 >遍历:获取字典中所有元素
 ```
 # 遍历字典，获取key
@@ -343,7 +359,7 @@ for k,v in dict01.items():
     print(k)
     print(v)
 ```
-## 7.字典推导式：
+### 7.字典推导式：
 ```
 dict02 = {}
 dict01 = {"a":10,"b":8,"c":5}
@@ -355,22 +371,22 @@ dict03 = {k:v**2 for k,v in dict01.items()}
 print(dict03)
 ```
 
-# 十.集合 set
-## 1.定义 
+## 十.集合 set
+### 1.定义 
     由一系列不重复的不可变类型变量组成的可变映射容器
-## 2.创建
+### 2.创建
 ```
 set01 = {"a",} 
 set02 = set()
 set03 = set(listc)
 set03 = set(可迭代对象)
 ```
-## 3.集合与列表的转换
+### 3.集合与列表的转换
 ```
 set01 = set(listc)
 lictd = list(set)
 ```
-## 4.固定集合 frozenset 
+### 4.固定集合 frozenset 
     固定集合是由别的类型转换而来
 ```
 frozenset01 = frozenset(["a","b","a"])
@@ -381,7 +397,7 @@ frozenset01 = frozenset({"a":10,"b":8})
 print(frozenset01)  #frozenset({'a', 'b'})
 ```
 
-## 5.基础操作
+### 5.基础操作
     (1). 创建空集合： 
     集合名 = set()  
     集合名 = set(可迭代对象)
@@ -393,7 +409,7 @@ print(frozenset01)  #frozenset({'a', 'b'})
     (4). 删除元素：
     集合名.discard(元素)
 
-## 6.运算 & | - ^ < > == !=
+### 6.运算 & | - ^ < > == !=
 (1).交集&：返回共同元素。
 >s1 = {1, 2, 3}
 s2 = {2, 3, 4}
@@ -428,11 +444,11 @@ s1 == s2  # True
 s1 != s2  # False
 子集或相同,超集或相同 <=  >=
 
-![集合数学运算](../day07/d07_集合数学运算.jpg "集合数学运算")
+![集合数学运算](../../imgs/base/day07/d07_集合数学运算.jpg "集合数学运算")
 
-# 十.容器之间的对比
+## 十一.容器之间的对比
 - 字符串:
-    
+  
     >不可变 存储编码值 序列
 - 列表:
     >可变　存储变量 序列
@@ -444,23 +460,23 @@ s1 != s2  # False
     >不可变　存储变量　序列
     按需分配
 - 字典:
-    
+  
     >可变 存储键值对 散列
 - 集合:
-    
+  
     >可变 存储键 散列
 - 固定集合:
-    
+  
     >不可变 存储键 散列
 
-# 十一.函数:
-## 1.定义：
+## 十二.函数:
+### 1.定义：
     用于封装一个特定的功能，表示一个功能或者行为
 
-## 2.作用：
+### 2.作用：
     提高代码的可重用性和可维护性
 
-## 3.语法：
+### 3.语法：
 ```
 def 函数名(形式参数):
     函数体
@@ -468,7 +484,7 @@ def 函数名(形式参数):
 def add(a,b):
     return a+b
 ```
-## 4.返回值 return
+### 4.返回值 return
     函数体没有return时返回None
 
 **可变／不可变类型在传参时的区别**
@@ -489,7 +505,7 @@ def add(a,b):
     >不可变类型的数据传参时，函数内部不会改变原数据的值。
     可变类型的数据传参时，函数内部可以改变原数据。
 
-## 5.作用域 LEGB
+### 5.作用域 LEGB
     (1)定义：变量起作用的范围
     (2)Local局部作用域：函数内部。
     (3)Enclosing  外部嵌套作用域 ：函数嵌套。 
@@ -500,7 +516,7 @@ def add(a,b):
     >(1). 由内到外：L -> E -> G -> B
     (2). 在访问变量时，先查找本地变量，然后是包裹此函数外部的函数内部的变量，之后是全局变量，最后是内置变量
 
-## 6.函数参数(实际参数)
+### 6.函数参数(实际参数)
 ```
 def fun01(a, b, c, d):
     print(a)
@@ -524,7 +540,7 @@ fun01(*list01)
 dict01 = {"a": 1, "c": 3, "d": 4, "b": 2}
 fun01(**dict01)
 
-## 7.函数参数(形式参数)
+### 7.函数参数(形式参数)
 >(1).缺省(默认)形参:如果实参不提供，可以使用默认值.
 ```
 def fun01(a=None, b=0, c=0, d=0):
@@ -569,55 +585,57 @@ fun06(a=1, b=2)
 ```
 
 ### 8.函数内存图
-![](../day08/d08_函数内存图1.jpg)
-![](../day08/d08_函数内存图2.jpg)
-![](../day08/d08_函数内存图3.jpg)
-![](../day08/d08_函数内存图4.jpg)
+![](../../imgs/base/day08/d08_函数内存图1.jpg)
+![](../../imgs/base/day08/d08_函数内存图2.jpg)
+![](../../imgs/base/day08/d08_函数内存图3.jpg)
+![](../../imgs/base/day08/d08_函数内存图4.jpg)
 
 
 
-# 十二.面向对象
-    概述：
-        面向过程：关注过程(细节)   “干”
-                例如：购物车
-                选择菜单-->购买-->打印商品信息-->创建订单--> ...
-                    |->结算-->...
-        面向对象：关心解决问题的人  “找”
-    
-    类与对象:
-        类：类别
-    
-        对象：个体
-    
-        类与类区别：行为(函数/方法)不同
-        对象与对象区别:数据不同
-    
-    语法：
-        创建类：
-        　　class 类名:
-                def __init__(self,参数):
-                    #数据成员
-                    self.数据1　= 参数
-    
-                #行为成员
-                def 方法名称():
-                    方法体
-    
-       创建对象：
-            变量名　＝　类名(参数)
+## 十三.面向对象
+```python
+概述：
+    面向过程：关注过程(细节)   “干”
+            例如：购物车
+            选择菜单-->购买-->打印商品信息-->创建订单--> ...
+                |->结算-->...
+    面向对象：关心解决问题的人  “找”
 
-# 十三.类和对象
-## 1.类:
+类与对象:
+    类：类别
+
+    对象：个体
+
+    类与类区别：行为(函数/方法)不同
+    对象与对象区别:数据不同
+
+语法：
+    创建类：
+    　　class 类名:
+            def __init__(self,参数):
+                #数据成员
+                self.数据1　= 参数
+
+            #行为成员
+            def 方法名称():
+                方法体
+
+   创建对象：
+        变量名　＝　类名(参数)
+```
+
+## 十四.类和对象
+### 1.类:
     抽象　　　向量 class Vector2    str  int   list
-## 2.对象:
+### 2.对象:
     具体　　1,2   Vector2(1,2)   "a"   1    [1,2]
-## 3.类和对象的区别：
+### 3.类和对象的区别：
     类与类行为不同
     对象与对象数据不同
     Vector2(1,2)　Vector2(3,4)
     同一个类型的多个对象,数据不同(1,2/3,4),行为(求方向，求大小)相同.
 
-## 4.类成员：
+### 4.类成员：
     实例：对象的数据(变量)，对象的行为(方法).
     类:类的数据(变量),类的行为(方法).
         可以被所有对象共同操作的数据
@@ -626,7 +644,7 @@ fun06(a=1, b=2)
         类方法操作类变量，表示"大家"行为.
         静态方法不能操作数据，表示为函数都可以.
 
-## 5.语法:实例
+### 5.语法:实例
 ```
 class MyClass:
     def __init__(self, a):
@@ -646,7 +664,7 @@ m02 = MyClass(100)
 print(m02.a)
 ```
 
-## 6.语法:类
+### 6.语法:类
 ```
 class MyClass02:
     # 类变量
@@ -662,7 +680,7 @@ class MyClass02:
 print(MyClass02.a)
 MyClass02.print_self()
 ```
-## 7.不常用的访问方式(不建议使用)
+### 7.不常用的访问方式(不建议使用)
     #访问实例方法，还可以通过类。
     MyClass.print_self(m01)  # 也必须传递对象
     
@@ -671,7 +689,7 @@ MyClass02.print_self()
     print(m03.a)
     print(m03.print_self())
 
-# 十四.封装
+## 十五.封装
     数据角度：将多个变量封装到一个自定义类中。
         优势：符合人类的思考方式
             可以将数据与对数据的操作封装到一起
@@ -690,7 +708,7 @@ MyClass02.print_self()
         高内聚：一个类有且只有一个发生变化的原因
         低耦合：类与类的关系松散
 
-## 代码示例
+### 代码示例
 ```
 class Student:
     def __init__(self, name, age):
@@ -835,7 +853,7 @@ s01.age = 11
 print(s01.age)
 ```
 
-# 十五.三层架构:
+## 十六.三层架构:
     View   Model  Controller
     界面    数据    业务逻辑
     变化    载体     变化
@@ -859,15 +877,15 @@ v = XXView()
 v.input_xx()
 ```
 
-![MVC](../day12/d12_信息管理系统架构MVC.jpg "MVC")
-![信息管理系统详细设计](../day12/d12_信息管理系统详细设计.jpg "信息管理系统详细设计")
+![MVC](../../imgs/base/day12/d12_信息管理系统架构MVC.jpg "MVC")
+![信息管理系统详细设计](../../imgs/base/day12/d12_信息管理系统详细设计.jpg "信息管理系统详细设计")
 
-# 十六.面向对象：
+## 十七.面向对象：
     考虑问题从对象的角度出发.
     抽象：从多个事物中，舍弃个别的/非本质的特征(不重要)，
         抽出共性的本质(重要的)过程。
 
-## 1.三大特征：
+### 1.三大特征：
     封装：
         数据的角度:将多个变量封装到一个自定义的类中
         功能的角度:对外提供必要的功能,隐藏实现的细节
@@ -892,7 +910,7 @@ v.input_xx()
              具体图形必须重写图形的计算面积方法。
         继承是共性(计算面积)，多态个性(长*宽 / pi *r**2)。
 
-## 2.设计原则
+### 2.设计原则
     开闭原则：允许增加新功能，不允许修改客户端代码.
     单一职责：一个有且只有一个改变的原因.
     依赖倒置：调用抽象(父)，不要调用具体(子);
@@ -901,23 +919,23 @@ v.input_xx()
     里氏替换:任何父类出现的地方都可以被子类替换掉
     迪米特法则:指类与类之间在需求满足的条件下,尽量不要有太多的关联
 
-## 3.类与类关系
+### 3.类与类关系
     泛化[继承](做成爸爸)
     关联(做成成员变量)
     依赖(做成方法参数)
 
-## 4.内存图
+### 4.内存图
 >图形管理器
-![](../day13/d13_图形管理器.jpg "图形管理器")
+![](../../imgs/base/day13/d13_图形管理器.jpg "图形管理器")
 >组合复用
-![](../day13/d13_组合复用.jpg "组合复用")
+![](../../imgs/base/day13/d13_组合复用.jpg "组合复用")
 >继承内存图
-![](../day13/d13_继承内存图.jpg "继承内存图")
+![](../../imgs/base/day13/d13_继承内存图.jpg "继承内存图")
 
-# 十七.模块
-## 1.定义：.py文件
-## 2.作用：多人合作开发
-## 3.导入：
+## 十八.模块
+### 1.定义：.py文件
+### 2.作用：多人合作开发
+### 3.导入：
     import 模块
     模块.成员名
     
@@ -929,7 +947,7 @@ v.input_xx()
     -------------------
     from 模块 import *
 
-## 4.模块相关概念
+### 4.模块相关概念
 	4-1.通过__all__指定可导出成员
 	from module01 import *
 	
@@ -953,7 +971,7 @@ v.input_xx()
 if __name__ == "__main__":
 	pass
 ```
-# 十八.time模块
+## 十九.time模块
     import time
 
 - 1.返回时间戳,从1970-01-01开始算起到现在经过的秒数
@@ -973,14 +991,14 @@ if __name__ == "__main__":
     print(a)  # 2019-06-20 18:54:03
 
 - 4.str  -->  时间元组
-    
+  
 >print(time.strptime(str_time01, "%Y / %m / %d %H:%M:%S"))
-    
+
 - 5.让系统沉睡几秒
-    
+  
     >time.sleep(5) #系统停顿5秒再执行接下来的程序
 
-# 十九.包 package
+## 二十.包 package
     学会如何相互调用，如何引入包，没有Pychar的时候如何引入包
     
     定义：包含__init__.py文件的文件夹
@@ -991,33 +1009,35 @@ if __name__ == "__main__":
     原理：import sys
         sys.path + from 的路径可以正确的定位到文件，导包才成功.
 
-# 二十.异常处理
-    异常类的基类是 Exception
-    try:
-        ....
-    except:
-        ....
-    finial:
-        ....
-    
-    1.获取异常
-    try:
-        age = int(input("请输入年龄:"))
-    except ValueError:
-        print("输入错误")
-    except Exception:
-        print("输入错误")
-    
-    2.自定义异常
-    class AtkError(Exception):
-        def __init__(self,msg,line,atk,id):
-            self.msg = msg
-            self.line = line
-            self.atk = atk
-            self.id = id
+## 二十一.异常处理
+```python
+异常类的基类是 Exception
+try:
+    ....
+except:
+    ....
+finial:
+    ....
+
+# 1.获取异常
+try:
+    age = int(input("请输入年龄:"))
+except ValueError:
+    print("输入错误")
+except Exception:
+    print("输入错误")
+
+2.自定义异常
+class AtkError(Exception):
+    def __init__(self,msg,line,atk,id):
+        self.msg = msg
+        self.line = line
+        self.atk = atk
+        self.id = id
+```
 
 ### 代码
-```
+```python
 class Enemy:
     def __init__(self,name,atk):
         self.name = name
@@ -1040,6 +1060,164 @@ except AtkError as e:
     print("%s 错误的行数：%d 错误编号：%s 值的范围：%s"%(e.msg,e.line,e.id,e.atk))
 ```
 
-#
+## 二十二.生成器
 
-#
+### 生成器/迭代器
+
+```
+生成器 = 迭代器 + 可迭代对象
+```
+
+### for循环的原理:
+
+```
+(1)获取迭代器
+(2)循环获取下一个元素
+(3)遇到异常停止
+```
+
+```python
+list_ = ["张三丰","张翠山","张无忌"]
+for item in list_:
+    print(item)
+
+#for循环的原理
+listiter =list_.__iter__() #获取迭代器
+while True:
+    try:
+        item = listiter.__next__() #循环获取下一个元素
+        print(item)
+    except StopIteration:
+        break
+```
+
+### 生成器表达式:
+
+```python
+变量 = (item for item in 可迭代对象 if条件) 生成器表达式
+# 变量 = [itme for item in 可迭代对象 if 条件] 列表推导
+# 变量 = {k,v for k,v in 可迭代对象 if 条件} 字典推导
+# 变量 = {item for item in 可迭代对象 if条件} 集合推导
+```
+
+### 生成器和迭代器的区别:
+
+```python
+# 可迭代对象：可以被转化为不依赖索引取值的容器，这样的对象就叫做可迭代对象
+#       -- 对象.__iter__() 来生成不依赖索引取值的容器
+#       -- 结论：有__iter__()方法的对象都称之为 可迭代对象
+
+# 迭代器对象：可以通过__next__()的方式进行取值的容器，且取一个少一个
+#       -- 结论：有__next__()且可以通过__next__()进行取值的容器
+#       -- 注意：迭代器对象自身也拥有__iter__(), 通过该方法返回的是迭代器对象自身
+
+# 迭代器(for循环)：就是用来从可迭代对象中进行取值的循环方法 | 语法：for 变量 in 对象:
+#       -- 1.通过对象.__iter__()获取其对应的迭代器对象
+#           -- for可以操作迭代器对象及可迭代对象，统一写法，所以迭代器和可迭代对象都有__iter__()
+#       -- 2.在内部通过迭代器对象的__next__()进行取值，将值赋值给 语法中的变量，取一个少一个
+#       -- 3.当迭代器对象取完了，在内部自动捕获异常，并结束循环取值
+
+(1)迭代器是一个更抽象的概念，任何对象，如果它的类有next方法和iter方法返回自己本身。对于string、list、dict、tuple等这类容器对象，使用for循环遍历是很方便的。在后台for语句对容器对象调用iter()函数，iter()是python的内置函数。iter()会返回一个定义了next()方法的迭代器对象，它在容器中逐个访问容器内元素，next()也是python的内置函数。在没有后续元素时，next()会抛出一个StopIteration异常
+
+(2)生成器（Generator）是创建迭代器的简单而强大的工具。它们写起来就像是正规的函数，只是在需要返回数据的时候使用yield语句。每次next()被调用时，生成器会返回它脱离的位置（它记忆语句最后一次执行的位置和所有的数据值）
+
+区别：生成器能做到迭代器能做的所有事,而且因为自动创建了__iter__()和next()方法,生成器显得特别简洁,而且生成器也是高效的，使用生成器表达式取代列表解析可以同时节省内存。除了创建和保存程序状态的自动方法,当发生器终结时,还会自动抛出StopIteration异常
+```
+
+## 二十三.函数式编程
+
+```python
+# 语法
+def fun01():
+    print("fun01执行喽")
+
+def fun02():
+    print("fun02执行喽")
+
+# 将函数作为函数的参数进行传递
+# 将一个函数的代码(fun02/fun01),注入到另外一个函数中(fun03)
+def fun03(func):
+    print("fun03执行喽")
+    func()
+
+fun03(fun01)
+fun03(fun02)
+```
+
+函数式编程思想
+
+```
+函数式编程 思想
+练习:exercise05.py
+```
+
+```python
+class SkillData:
+    def __init__(self,id,name,atk_ratio,duration):
+        self.id = id
+        self.name = name
+        self.atk_ratio = atk_ratio
+        self.duration = duration
+
+    def __str__(self):
+        return "技能数据是:%d,%s,%d,%d"%(self.id,self.name,self.atk_ratio,self.duration)
+
+list_skill = [
+    SkillData(101,"乾坤大挪移",5,10),
+    SkillData(102,"降龙十八掌",8,5),
+    SkillData(103,"葵花宝典",10,2),
+]
+
+# 需求1:获取攻击比例大于6的所有技能
+def find01():
+    for item in list_skill:
+        if item.atk_ratio > 6:
+            yield item
+
+# 需求2:获取持续时间在4--11之间的所有技能
+def find02():
+    for item in list_skill:
+        if 4<item.duration<11:
+            yield item
+
+# 需求3:获取技能名称大于4个字并且持续时间小于6的所有技能
+def find04():
+    for item in list_skill:
+        if len(item.name) > 4 and item.duration < 6:
+            yield item
+
+# "封装"(分而治之 变则疏之)
+# 将每个变化的条件,单独定义在函数中.
+def condition01(item):
+    return item.atk_ratio > 6
+
+def condition02(item):
+    return 4<item.duration<11
+
+def condition03(item):
+    return len(item.name) > 4 and item.duration < 6
+
+# "继承"(隔离变化)
+def find(func_condition):
+    """
+        通用的查找方法
+    :param func_condition: 查找条件,函数类型.
+            函数名(变量) --> 返回值bool类型
+    :return:
+    """
+    for item in list_skill:
+        # "多态":调用父(变量),执行子(具体函数).
+        #       不同子类重写父类方法,执行逻辑不同.
+
+        # if item.atk_ratio > 6:
+        # if condition01(item):
+        if func_condition(item):
+            yield item
+
+for item in find(condition01):
+    print(item)
+
+for item in find(condition02):
+    print(item)
+```
+
