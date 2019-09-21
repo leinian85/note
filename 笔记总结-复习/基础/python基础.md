@@ -340,12 +340,16 @@ print(dict01)
 
 ### 6.遍历
 >遍历:获取字典中所有元素
-```
+```python
 # 遍历字典，获取key
 for key in dict01:
     print(key)
     print(dict01[key])
-
+    
+# 遍历字典，获取key
+for key in dict01.keys():
+    print(key)
+    
 # 遍历字典，获取value
 for value in dict01.values():
     print(value)
@@ -355,12 +359,13 @@ for item in dict01.items():
     print(item[0])
     print(item[1])
 
+# 遍历字典，获取键值对key value(值).
 for k,v in dict01.items():
     print(k)
     print(v)
 ```
 ### 7.字典推导式：
-```
+```python
 dict02 = {}
 dict01 = {"a":10,"b":8,"c":5}
 for k,v in dict01.items():
