@@ -140,7 +140,7 @@ time.sleep(5)
 browser.quit() # 关闭浏览器
 ```
 
-####     1. 常用操作
+####     (1). 常用操作
 
 ```python
 # 1、键盘操作
@@ -168,9 +168,7 @@ browser.switch_to.iframe(iframe_element)
 url = 'http://用户名:密码@正常地址'
 ```
 
-
-
-####     2. 无界面模式(代码示例)
+####     (2). 无界面模式(代码示例)
 
 ```python
 # 代码示例2: 京东爬图书
@@ -229,7 +227,7 @@ js = JdSpider()
 js.run('爬虫')
 ```
 
-####     3. 模拟鼠标移动(代码示例)
+####     (3). 模拟鼠标移动(代码示例)
 
 ```python
 # 代码示例3:模拟鼠标移动
@@ -247,7 +245,7 @@ mouse_obj.perform()
 browser.find_element_by_link_text('高级搜索').click()
 ```
 
-####     4. 句柄切换(代码示例)
+####     (4). 句柄切换(代码示例)
 
 ```python
 # 代码示例4:句柄切换,爬行政区域编号
@@ -354,7 +352,7 @@ print(result)
 
 ### 11.scrapy 框架
 
-####     1.安装
+####     (1).安装
 
 ```shell
 # Ubuntu安装
@@ -376,7 +374,7 @@ cmd命令行(管理员): python -m pip install Scrapy
 # Error: Microsoft Visual C++ 14.0 is required xxx
 ```
 
-####     2.命令
+####     (2).命令
 
 ```shell
 # 创建一个 Baidu 的项目
@@ -387,7 +385,7 @@ scrapy genspider 爬虫名 域名
 scrapy crawl 爬虫名
 ```
 
-####     3.scrapy项目结构
+####     (3).scrapy项目结构
 
 ```shell
 Baidu                   # 项目文件夹
@@ -401,7 +399,7 @@ Baidu                   # 项目文件夹
 └── scrapy.cfg          # 项目基本配置文件
 ```
 
-####     4.案例
+####     (4).案例
 
 ### 12.下载大文件
 
