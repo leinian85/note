@@ -6,14 +6,14 @@
 
 ### 2.GIT
     配置:
-    
+
 - 配置用户名
 > 会在/etc/下创建一个 gitconfig 的配置文件 
 /etc/gitconfig
 ```
     e.g. 将用户名设置为Tedu
     $ sudo git config --system user.name Tedu
-```   
+```
 - 配置用户邮箱
 > 会在~/下创建一个 .gitconfig 的隐藏配置文件
 ~/.gitconfig 
@@ -30,7 +30,7 @@
 ```
     $ git config --list
 ```
-    
+
 ### 3.基本命令
 - 初始化仓库
 >git init
@@ -195,3 +195,19 @@ git push -u origin  master
 > 区别
 >> pull将远程内容直接拉取到本地，并和对应分支内容进行合并
 >> fetch将远程分支内容拉取到本地，但是不会和本地对应分支合并，可以自己判断后再使用merge合并。
+
+9. 强制覆盖本地代码
+
+   ```shell
+   git fetch --all
+   git reset --hard origin/master
+   git pull
+   ```
+
+   单条命令:
+
+   ```shell
+   git fetch --all && git reset --hard origin/master && git pull
+   ```
+
+   
