@@ -719,6 +719,14 @@ pip3 install jupyter
 
 #### 数据读取与存储
 
+```shell
+# 启动jupyter
+cd 工作目录
+jupyter notebook
+```
+
+
+
 **读取与存储csv：**
 
 ```python
