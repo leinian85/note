@@ -1,8 +1,4 @@
-PYTHON
-
-目录
-
-[TOC]
+# PYTHON基础
 
 ## 一.介绍
 
